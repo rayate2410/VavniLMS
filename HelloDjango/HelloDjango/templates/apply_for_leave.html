@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Vavni LMS</title>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}" media="all">
+<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+ <script type="text/JavaScript"> 
+  $(document).ready(function(){ 
+		
+		$("#saveForm").click(function() {
+				
+				
+				$.ajax({
+						url : "/applyForLeave.psp",
+						type : "POST",
+						data : {
+							date_from : $("#element_6_1").val()+"/"+$("#element_6_2").val()+"/"+$("#element_6_3").val(),
+							date_to : $("#element_7_1").val()+"/"+$("#element_7_2").val()+"/"+$("#element_7_3").val(),
+							type : $("input:radio[name='r']:checked").val()+''+$("input:radio[name='s']:checked").val(),
+							description : $("#element_3").val()
+							
+						},
+				success : function(json) {
+						alert(json.server_response);
+				},
+				error : function(xhr,errmsg,err) {
+					alert(xhr.status + ": " + xhr.responseText);
+				}
+		});
+		return false;
+	});
+  }); 
+  </script> 
+<script type="text/javascript" src="{% static 'js/view.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/calendar.js'%}"></script>
+ 
+</head>
+<body id="main_body" >
+
+	
+	<img id="top" src="{% static 'images/top.png' %}" alt="">
+	<div id="form_container">
+	
+		<h1><a>Apply For Leave Here.</a></h1>
+		<form id="form_777363" class="appnitro"  method="post" action="">
+					<div class="form_description" height="1000px">
+					
+			<h2>Apply For Leave Here.</h2>
+			<p>Please fill in the details and click on "Apply Now" button to apply for a leave.</p>
+		</div>						
+			<ul >
+			
+					<li id="li_6" >
+		<label class="description" for="element_6">Date From </label>
+		<span>
+			<input id="element_6_1" name="element_6_1" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_6_1">MM</label>
+		</span>
+		<span>
+			<input id="element_6_2" name="element_6_2" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_6_2">DD</label>
+		</span>
+		<span>
+	 		<input id="element_6_3" name="element_6_3" class="element text" size="4" maxlength="4" value="" type="text">
+			<label for="element_6_3">YYYY</label>
+		</span>
+	
+		<span id="calendar_6">
+			<img id="cal_img_6" class="datepicker" src="{% static 'images/calendar.gif' %}" alt="Pick a date.">	
+		</span>
+		<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_6_3",
+			baseField    : "element_6",
+			displayArea  : "calendar_6",
+			button		 : "cal_img_6",
+			ifFormat	 : "%B %e, %Y",
+			onSelect	 : selectDate
+			});
+		</script>
+		<p class="guidelines" id="guide_6"><small>Provide a date from which you are applying for a leave.</small></p> 
+		</li>		<li id="li_7" >
+		<label class="description" for="element_7">Date To </label>
+		<span>
+			<input id="element_7_1" name="element_7_1" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_7_1">MM</label>
+		</span>
+		<span>
+			<input id="element_7_2" name="element_7_2" class="element text" size="2" maxlength="2" value="" type="text"> /
+			<label for="element_7_2">DD</label>
+		</span>
+		<span>
+	 		<input id="element_7_3" name="element_7_3" class="element text" size="4" maxlength="4" value="" type="text">
+			<label for="element_7_3">YYYY</label>
+		</span>
+	
+		<span id="calendar_7">
+			<img id="cal_img_7" class="datepicker" src="{% static 'images/calendar.gif' %}" alt="Pick a date.">	
+		</span>
+		<script type="text/javascript">
+			Calendar.setup({
+			inputField	 : "element_7_3",
+			baseField    : "element_7",
+			displayArea  : "calendar_7",
+			button		 : "cal_img_7",
+			ifFormat	 : "%e %B, %Y",
+			onSelect	 : selectDate
+			});
+		</script>
+		<p class="guidelines" id="guide_7"><small>Provide a date to which you are applying for a leave.</small></p> 
+		</li>		<li id="li_4" >
+		<label class="description" for="element_4">Type of leave </label>
+		<span>
+
+		<input type="radio"  name="r" value="Half Leave"/> Half Leave
+		<input type="radio"  name="s" value="Full Leave"/> Full Leave
+
+		</span><p class="guidelines" id="guide_4"><small>Select type of leave.</small></p> 
+		</li>		<li id="li_3" >
+		<label class="description" for="element_3">Description </label>
+		<div>
+			<textarea id="element_3" name="element_3" class="element textarea small"></textarea> 
+		</div><p class="guidelines" id="guide_3"><small>Provide a short description for reason of applying for a leave.</small></p> 
+		</li>		<li id="li_5" >
+		<label class="description" for="element_5">Select Your Team Lead (Head) </label>
+		<div>
+		<select class="element select large" id="element_5" name="element_5"> 
+			<option value="" selected="selected"></option>
+<option value="1" >Aakash Rayate (arayate@vavni.com)</option>
+<option value="2" >Jigar Patel (jpatel@vavni.com)</option>
+<option value="3" >Jadav Bheda (jbheda@vavni.com)</option>
+
+		</select>
+		</div><p class="guidelines" id="guide_5"><small>An e-mail will be sent to your team lead for approval.</small></p> 
+		</li>		<li id="li_8" >
+		<label class="description" for="element_8">Select CC list. </label>
+		<div>
+		<select class="element select large" id="element_8" name="element_8"> 
+			<option value="" selected="selected"></option>
+<option value="1" >Aakash Rayate (arayate@vavni.com)</option>
+<option value="2" >Jigar Patel (jpatel@vavni.com)</option>
+<option value="3" >Jadav Bheda (jbheda@vavni.com)</option>
+
+		</select>
+		</div><p class="guidelines" id="guide_8"><small>An e-mail will be sent to your CC list when this leave is approved.</small></p> 
+		</li>
+			
+					<li class="buttons">
+			    <input type="hidden" name="form_id" value="777363" />
+			    
+				<input id="saveForm" type="button" class="button_text" value="Apply Now" />
+		</li>
+			</ul>
+		</form>	
+		<div id="footer">
+			Vavni Leave Management System
+		</div>
+		
+	</div>
+	<img id="bottom" src="{% static 'images/bottom.png' %}" alt="">
+	</body>
+</html>
